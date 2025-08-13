@@ -1,0 +1,14 @@
+version: v2
+proxy_server: teleport.attico.dev:443
+oneshot: true
+onboarding:
+  token: gitlab-demo-token
+  join_method: gitlab
+storage:
+  type: memory
+# outputs will be filled in during the completion of an access guide.
+outputs:
+  - type: identity
+    destination:
+      type: directory
+      path: /opt/machine-id

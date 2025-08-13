@@ -1,0 +1,14 @@
+kind: user
+version: v2
+metadata:
+  name: gitlab-bot
+spec:
+  roles:
+  - gitlab-deploy
+
+  traits:
+    logins:
+    - develop
+    - prod
+    - llm
+    - demo

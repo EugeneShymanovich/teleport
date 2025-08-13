@@ -1,0 +1,16 @@
+kind: role
+version: v7
+metadata:
+  name: llm-dev
+  description: "Grants access as 'llm' user to servers in the 'llm' project"
+spec:
+  options:
+    max_session_ttl: 8h
+    forward_agent: true
+
+  allow:
+    logins:
+      - llm
+
+    node_labels:
+      project: "llm"

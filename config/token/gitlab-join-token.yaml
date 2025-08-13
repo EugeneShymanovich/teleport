@@ -1,0 +1,16 @@
+kind: token
+version: v2
+metadata:
+  name: gitlab-ci-token
+spec:
+  roles: [gitlab-deploy]
+
+  join_method: gitlab
+
+  bot_name: gitlab-bot
+
+  gitlab:
+    domain: gitlab.attico.dev
+
+    allow:
+      - project_path: "dashboard/projects"

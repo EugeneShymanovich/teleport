@@ -1,0 +1,12 @@
+kind: token
+version: v2
+metadata:
+  name: gitlab-demo-token
+spec:
+  roles: [llm-dev]
+  join_method: gitlab
+  bot_name: gitlab-demo-bot
+  gitlab:
+    domain: git.attico.dev
+    allow:
+      - project_path: devops/teleport

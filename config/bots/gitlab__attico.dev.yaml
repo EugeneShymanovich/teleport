@@ -1,0 +1,9 @@
+kind: bot
+version: v1
+metadata:
+  # A unique identifier for the bot in the cluster.
+  name: gitlab:attico.dev
+spec:
+  # A list of roles to grant to the bot.
+  roles:
+    - dev
