@@ -1,0 +1,18 @@
+kind: role
+version: v7
+metadata:
+  name: gitlab-deploy
+  description: "Allows GitLab CI/CD to deploy to servers marked as 'deploy-target: true'"
+spec:
+  options:
+    max_session_ttl: 1h
+
+  allow:
+    logins: ["{{internal.logins}}"]
+
+    node_labels:
+      deploy-target: "true"
+      
+    rules:
+      - resources: ['node']
+        verbs: ['list', 'read']

@@ -1,0 +1,7 @@
+kind: bot
+version: v1
+metadata:
+  name: gitlab-demo-bot
+spec:
+  roles:
+    - access

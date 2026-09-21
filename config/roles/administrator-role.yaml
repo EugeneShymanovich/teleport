@@ -1,0 +1,17 @@
+kind: role
+version: v7
+metadata:
+  name: administrator
+spec:
+  options:
+    max_session_ttl: 8h
+  
+  allow:
+    logins: ["{{internal.logins}}"]
+    
+    node_labels:
+      "*": "*"
+      
+    rules:
+      - resources: ["*"]
+        verbs: ["*"]

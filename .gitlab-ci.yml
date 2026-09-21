@@ -1,0 +1,57 @@
+stages:
+  - deploy
+
+variables:
+  TELEPORT_VERSION: 18.1.1
+
+deploy_to_llm:
+  stage: deploy
+  image: ubuntu:24.04
+  
+  id_tokens:
+    TBOT_GITLAB_JWT:
+      aud: acme
+
+  before_script:
+    - echo "--- Preparing environment ---"
+    - apt-get update -qq && apt-get install -y curl openssh-client
+    - echo "--- Installing Teleport client ---"
+    - pushd /tmp
+    - curl -O https://cdn.teleport.dev/teleport-v${TELEPORT_VERSION}-linux-amd64-bin.tar.gz
+    - tar -xvf teleport-v${TELEPORT_VERSION}-linux-amd64-bin.tar.gz
+    - ./teleport/install
+    - popd
+
+  script:
+    - tbot start -c tbot.yaml
+    - ssh -F /opt/machine-id/ssh_config develop@acme-dev.example.com 'whoami && hostname && echo "Deployed successfully via Teleport!"'
+    # - |
+    #   echo "Deployment method selected: $DEPLOY_METHOD"
+
+    #   if [ "$DEPLOY_METHOD" == "teleport" ]; then
+        
+    #     # Deploy via Teleport
+    #     echo "--- Deploying via Teleport ---"
+    #     echo "$TELEPORT_IDENTITY" > identity.pem
+    #     chmod 600 identity.pem
+    #     tsh login --proxy=teleport.example.com --identity=identity.pem
+    #     NODE_ID=$(tsh ls -f json | jq -r '.[] | select(.spec.hostname == "llm") | .metadata.name')
+    #     tsh ssh llm@$NODE_ID 'whoami && hostname && echo "Deployed successfully via Teleport!"'
+
+    #   elif [ "$DEPLOY_METHOD" == "ssh" ]; then
+
+    #     # Deploy via direct SSH
+    #     echo "--- Deploying via direct SSH ---"
+    #     eval $(ssh-agent -s)
+    #     echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        
+    #     ssh -p $SSH_PORT -o StrictHostKeyChecking=no $SSH_USER@$HOST 'whoami && hostname && echo "Deployed successfully via direct SSH!"'
+      
+    #   else
+
+    #     echo "!!! ERROR: Invalid DEPLOY_METHOD specified: '$DEPLOY_METHOD'"
+    #     echo "!!! Please use 'teleport' or 'ssh'."
+    #     exit 1
+        
+    #   fi
+

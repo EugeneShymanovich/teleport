@@ -1,0 +1,16 @@
+kind: role
+version: v7
+metadata:
+  name: dev
+  description: "Grants SSH access as 'develop' to servers of type 'acme'"
+spec:
+  options:
+    max_session_ttl: 8h
+    forward_agent: true
+
+  allow:
+    logins:
+      - develop
+
+    node_labels:
+      server-type: "acme"

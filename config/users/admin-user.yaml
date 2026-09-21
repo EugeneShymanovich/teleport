@@ -1,0 +1,10 @@
+kind: user
+version: v2
+metadata:
+  name: admin
+spec:
+  roles:
+  - administrator
+
+  traits:
+    logins: [llm, develop, devops, prod]
